@@ -1,7 +1,9 @@
 ﻿using Android.App;
 using Android.OS;
 using Android.Runtime;
+using Android.Widget;
 using AndroidX.AppCompat.App;
+using AndroidX.RecyclerView.Widget;
 
 namespace MyContacts
 {
@@ -14,6 +16,17 @@ namespace MyContacts
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
+
+
+            var listView = FindViewById<ListView>(Resource.Id.listViewProvince);
+
+            listView.Adapter = new ArrayAdapter<string>(this, Resource.Layout.list_item, Province.datas);
+
+            listView.ItemClick += (object sender, AdapterView.ItemClickEventArgs args) =>
+            {
+                var toast = Toast.MakeText(Application, ((TextView)args.View).Text, ToastLength.Short);
+                toast.Show();
+            };
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
