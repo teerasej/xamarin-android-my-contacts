@@ -29,8 +29,11 @@ namespace MyContacts
 
             listView.ItemClick += (object sender, AdapterView.ItemClickEventArgs args) =>
             {
-                var toast = Toast.MakeText(Application, ((TextView)args.View).Text, ToastLength.Short);
-                toast.Show();
+                var selectedProvinceName = ((TextView)args.View).Text;
+                var myIntent = new Intent(this, typeof(MainActivity));
+                myIntent.PutExtra("name", selectedProvinceName);
+                SetResult(Result.Ok, myIntent);
+                Finish();
             };
         }
     }
