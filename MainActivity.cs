@@ -11,6 +11,9 @@ namespace MyContacts
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
+
+        Button buttonSelectProvince;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -29,7 +32,7 @@ namespace MyContacts
             //    toast.Show();
             //};
 
-            var buttonSelectProvince = FindViewById<Button>(Resource.Id.buttonSelectProvince);
+            buttonSelectProvince = FindViewById<Button>(Resource.Id.buttonSelectProvince);
 
             buttonSelectProvince.Click += (sender, e) =>
             {
@@ -38,6 +41,18 @@ namespace MyContacts
             };
 
         }
+
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if(resultCode == Result.Ok)
+            {
+                buttonSelectProvince.Text = data.GetStringExtra("name");
+            }
+        }
+
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
