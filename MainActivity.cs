@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Widget;
@@ -18,15 +19,24 @@ namespace MyContacts
             SetContentView(Resource.Layout.activity_main);
 
 
-            var listView = FindViewById<ListView>(Resource.Id.listViewProvince);
+            //var listView = FindViewById<ListView>(Resource.Id.listViewProvince);
 
-            listView.Adapter = new ArrayAdapter<string>(this, Resource.Layout.list_item, Province.datas);
+            //listView.Adapter = new ArrayAdapter<string>(this, Resource.Layout.list_item, Province.datas);
 
-            listView.ItemClick += (object sender, AdapterView.ItemClickEventArgs args) =>
+            //listView.ItemClick += (object sender, AdapterView.ItemClickEventArgs args) =>
+            //{
+            //    var toast = Toast.MakeText(Application, ((TextView)args.View).Text, ToastLength.Short);
+            //    toast.Show();
+            //};
+
+            var buttonSelectProvince = FindViewById<Button>(Resource.Id.buttonSelectProvince);
+
+            buttonSelectProvince.Click += (sender, e) =>
             {
-                var toast = Toast.MakeText(Application, ((TextView)args.View).Text, ToastLength.Short);
-                toast.Show();
+                var intent = new Intent(this, typeof(SelectProvinceActivity));
+                StartActivityForResult(intent, 0);
             };
+
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
